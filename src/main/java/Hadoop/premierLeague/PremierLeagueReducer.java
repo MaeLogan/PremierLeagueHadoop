@@ -12,12 +12,12 @@ public class PremierLeagueReducer extends Reducer<Text, IntWritable, Text, IntWr
     @Override
     protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
         int sum = 0;
-        // Additionner tous les tirs pour l'équipe à domicile donnée
+        // Add up all the goals for the team
         for (IntWritable value : values) {
             sum += value.get();
         }
 
-        // Émettre le total des tirs pour cette équipe
+        // Set the total goals for the team
         totalGoals.set(sum);
         context.write(key, totalGoals);
     }
