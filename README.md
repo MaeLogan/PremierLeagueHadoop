@@ -3,7 +3,8 @@
 Ce projet utilise Hadoop MapReduce pour analyser des données de matchs de la Premier League anglaise de 1995 à 2021. Il traite plusieurs fichiers CSV et extrait le nombre total de but réalisés par chaque équipe lorsqu'elle joue à domicile.
 
 <h2>Prérequis</h2>
-**<h3>Logiciels requis :</h3>**
+
+<h3>Logiciels requis :</h3>
 
 - Java Development Kit (JDK) version 8 ou plus récente.
 - Apache Hadoop (3.x) configuré pour être exécuté sur un cluster distribué.
