@@ -17,7 +17,7 @@ public class PremierLeague {
         }
         System.out.println("Hello world!");
 
-        // Configuration du job
+        // Create and configure a new Job
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "Premier League Shot Count");
 
@@ -25,16 +25,16 @@ public class PremierLeague {
         job.setMapperClass(PremierLeagueMapper.class);
         job.setCombinerClass(PremierLeagueReducer.class);
         job.setReducerClass(PremierLeagueReducer.class);
-        // Définir le type de sortie du Mapper et du Reducer
+        // Define the output key and value types
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
 
-        // Chemins d'entrée et de sortie
+        // Define Path of input and output
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        // Exécuter le job
+        // Execute Job
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }

@@ -17,30 +17,32 @@ public class PremierLeagueMapper extends Mapper<Object, Text, Text, IntWritable>
     @Override
     protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
-        // Récupérer la ligne
+        // Get the line
         String line = value.toString();
 
-        // Vérifier si la ligne est vide
+        // Check if the line is empty
         if (line.isEmpty()) {
-            return; // Ignorer les lignes vides
+            return; // if empty, skip this line
         }
 
 
-        // Séparer les colonnes du fichier CSV (en supposant que le séparateur est une virgule)
+        // split the line into an array of strings
         String[] matchData = line.split(",");
 
-        // Vérifier si c'est la première ligne du fichier CSV
+        // Check if the line is a header
         if (matchData[0].equals("Div")) {
             return;
         }
 
 
-        // Récupérer l'équipe à domicile et les tirs à domicile (adapter les indices selon votre fichier CSV)
-        String homeTeamName = matchData[2]; // Par exemple : 2e colonne = équipe à domicile
-        int homeShots = Integer.parseInt(matchData[4]); // Par exemple : 9e colonne = tirs à domicile
-        // Émettre le nom de l'équipe et le nombre de tirs comme paire clé-valeur
+        // Get the home team name and the number of goals scored
+        String homeTeamName = matchData[2];
+        int homeShots = Integer.parseInt(matchData[4]);
+        // Set the home team name and the number of goals scored in key-value
         homeTeam.set(homeTeamName);
+
         goals.set(homeShots);
+
         context.write(homeTeam, goals);
     }
 }
