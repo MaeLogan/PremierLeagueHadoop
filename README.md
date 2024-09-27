@@ -1,99 +1,91 @@
-**<h1>Description</h1>**
+<h1>Description</h1>
 
-Ce projet utilise Hadoop MapReduce pour analyser des données de matchs de la Premier League anglaise de 1995 à 2021. Il traite plusieurs fichiers CSV et extrait le nombre total de but réalisés par chaque équipe lorsqu'elle joue à domicile.
+This project uses Hadoop MapReduce to analyze English Premier League match data from 1995 to 2021. It processes multiple CSV files and extracts the total number of goals scored by each team when playing at home.
+<h2>Prerequisites</h2> <h3>Required Software:</h3>
 
-<h2>Prérequis</h2>
+    Java Development Kit (JDK) version 8 or higher.
+    Apache Hadoop (3.x) configured to run on a distributed cluster.
+    Apache Maven to build the package.
+    GIT (optional) to clone the repository if needed.
 
-<h3>Logiciels requis :</h3>
+<h2>1. Running the program locally</h2> <h3>Clone the repository or download the project files:</h3>
 
-- Java Development Kit (JDK) version 8 ou plus récente.
-- Apache Hadoop (3.x) configuré pour être exécuté sur un cluster distribué.
-- Apache Maven pour créer le package.
-- GIT (optionnel) pour cloner le dépôt si nécessaire.
-
-<h2>1. Exécuter le programme en local</h2>
-
-<h3>Clonez le dépôt ou téléchargez les fichiers du projet :</h3>
-
-
+```bash
+git clone <REPO-URL>
+cd <PROJECT-NAME>
 ```
-git clone <URL-DU-DÉPÔT>
-cd <NOM_DU_PROJET>
-```
+<h3>Compile and build the package with Maven:</h3>
 
-<h3>Compilez et créez le package avec Maven :</h3>
 
-```
+```bash
 mvn clean package
 ```
 
-Cela génère un fichier JAR dans le répertoire target/. Le fichier JAR aura un nom similaire à premierleague-1.0-SNAPSHOT.jar.
+This generates a JAR file in the target/ directory. The JAR file will have a name similar to premierleague-1.0-SNAPSHOT.jar.
+<h3>Run the program:</h3>
 
-<h3>Exécutez le programme:</h3>
-
+```bash
+java -jar target/premierleague-1.0-SNAPSHOT-with-dependencies.jar < input > < output >
 ```
-java -jar target/premierleague-1.0-SNAPSHOT-with-dependencies.jar <input> <output>
-```
+    input: The local directory containing the CSV files to analyze (e.g., src/main/resources/archive).
+    output: The local directory where the results will be generated (e.g., src/main/resources/output).
 
-- ***input*** : Le répertoire local contenant les fichiers CSV à analyser. (ex: src/main/resources/archive)
-- ***output*** : Le répertoire local où les résultats seront générés. (ex: src/main/resources/output)
+<h3>1.2. Viewing the results</h3>
 
-<h3>1.2. Visualisation des résultats</h3>
+After execution, open the output file generated in the output/ directory:
 
-Après l'exécution, ouvrez le fichier de sortie généré dans le répertoire output/ :
-
-```
+```bash
 cat output/results.txt
 ```
-Chaque ligne contiendra le nom de l'équipe et le nombre total de but réalisés a domicile.
+
+Each line will contain the team name and the total number of goals scored at home.
+<h2>2. Running the program with Hadoop MapReduce</h2>
+
+Prerequisites:
+
+- Complete the Docker tutorial (https://insatunisia.github.io/TP-BigData/tp1/)
+- Have a working Hadoop cluster
+- Complete part 1 of the Readme
+
+<h3>Upload your data to the Docker master node</h3>
 
 
-<h2>2. Exécuter le programme avec Hadoop MapReduce</h2>
-
-**prérequis :**
-
-- Avoir réaliser le TP docker (https://insatunisia.github.io/TP-BigData/tp1/)
-- Avoir un cluster Hadoop fonctionnel
-- Avoir réaliser la partie 1 du Readme
-
-<h3> Envoyer vos données dans votre docker master</h3>
-
-```
-docker cp src/main/resources/archive/ hadoop-master:/root/<NOM_DU_PROJET>/archive
-```
-<h3>mettre nos données dans hdfs</h3>
-
-```
-hdfs dfs -mkdir -p /user/root/<NOM_DU_PROJET>
-hdfs dfs -put /root/<NOM_DU_PROJET>/archive /user/root/<NOM_DU_PROJET>
+```bash
+docker cp src/main/resources/archive/ hadoop-master:/root/<PROJECT-NAME>/archive
 ```
 
-<h3> Exécutez le programme avec Hadoop :</h3>
+<h3>Put your data into HDFS</h3>
 
-dans un permier temps on va copier le fichier jar dans le docker master
-```
-docker cp target/premierleague-1.0-SNAPSHOT-with-dependencies.jar hadoop-master:/root/<NOM_DU_PROJET>
+```bash
+hdfs dfs -mkdir -p /user/root/<PROJECT-NAME>
+hdfs dfs -put /root/<PROJECT-NAME>/archive /user/root/<PROJECT-NAME>
 ```
 
-Ensuite on va exécuter le programme hadoop
+<h3>Run the program with Hadoop:</h3>
 
+First, copy the JAR file into the Docker master node:
+
+```bash
+docker cp target/premierleague-1.0-SNAPSHOT-with-dependencies.jar hadoop-master:/root/<PROJECT-NAME>
 ```
+
+Next, run the Hadoop job:
+
+```bash
 hadoop jar premierleague-1.0-SNAPSHOT-with-dependencies.jar <input> <output>
 ```
+- input: The HDFS directory containing the CSV files to analyze (e.g., <PROJECT-NAME>/archive).
+- output: The HDFS directory where the results will be generated (e.g., <PROJECT-NAME>/output).
 
-- ***input*** : Le répertoire HDFS contenant les fichiers CSV à analyser. (ex: <NOM_DU_PROJET>/archive)
-- ***output*** : Le répertoire HDFS où les résultats seront générés. (ex: <NOM_DU_PROJET>/output)
+<h3>2.2. Viewing the results</h3>
 
-<h3>2.2. Visualisation des résultats</h3>
+After execution, open the output file generated in the output/ directory:
 
-Après l'exécution, ouvrez le fichier de sortie généré dans le répertoire output/ :
 
+```bash
+hdfs dfs -cat /user/root/<PROJECT-NAME>/output/results.txt
 ```
-hdfs dfs -cat /user/root/<NOM_DU_PROJET>/output/results.txt
-```
-
-Chaque ligne contiendra le nom de l'équipe et le nombre total de but réalisés a domicile.
-
+Each line will contain the team name and the total number of goals scored at home.
 
 
 

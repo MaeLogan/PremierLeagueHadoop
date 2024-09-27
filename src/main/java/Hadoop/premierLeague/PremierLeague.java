@@ -8,8 +8,18 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+/*
+    * This class is the driver class for the MapReduce job.
+ */
 public class PremierLeague {
 
+    /*
+     * This method creates and configures a new Job, sets the Mapper and Reducer classes, and defines the output key and value types.
+     * It then defines the input and output paths and executes the Job.
+     * @Param args: The input and output paths for the MapReduce job
+     * @Throws Exception
+     * @Return void
+     */
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
             System.err.println("Usage: PremierLeagueDriver <input path> <output path>");

@@ -6,14 +6,27 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
-import java.util.Arrays;
 
+
+/*
+ * This class is the Mapper class for the MapReduce job.
+ */
 public class PremierLeagueMapper extends Mapper<Object, Text, Text, IntWritable> {
 
     private final Text homeTeam = new Text();
     private final IntWritable goals = new IntWritable();
 
 
+    /*
+     * This method reads the input line by line and extracts the home team name and the number of goals scored.
+     * It then sets the home team name and the number of goals scored in key-value pairs.
+     * @Param key: The key of the input data
+     * @Param value: The value of the input data
+     * @Param context: The context object for the MapReduce job
+     * @Throws IOException
+     * @Throws InterruptedException
+     * @Return void
+     */
     @Override
     protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
