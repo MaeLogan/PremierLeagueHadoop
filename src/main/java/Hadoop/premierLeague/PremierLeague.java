@@ -45,6 +45,16 @@ public class PremierLeague {
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
         // Execute Job
-        System.exit(job.waitForCompletion(true) ? 0 : 1);
+        boolean jobSuccess = job.waitForCompletion(true);
+
+        // If the job is successful, generate the chart
+        if (jobSuccess) {
+            System.out.println("Job completed successfully. Generating chart...");
+            // Call your PremierLeagueChart class to generate the chart
+            PremierLeagueChart.generateChart();  // Pass the output path to the chart generator
+        } else {
+            System.err.println("Job failed. No chart will be generated.");
+            System.exit(1);
+        }
     }
 }

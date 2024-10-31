@@ -39,7 +39,7 @@ mvn clean package
    Start the Hadoop and HBase containers in your docker
 
 ```bash
-  docker exec -it hadoop-master
+  docker exec -it hadoop-master bash
   start-hbase.sh
 ```
 
