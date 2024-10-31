@@ -46,23 +46,23 @@ mvn clean package
 copy the input files to the container
 
 ```bash
-  docker cp /path/to/local/files/*.csv hadoop-master:/input/
+  docker cp /path/to/local/files/*.csv hadoop-master:/pathToinput/
 ```
 
 copy the jar file to the container
 
 ```bash
-  docker cp /path/to/local/files/*.jar hadoop-master:/input/
+  docker cp /path/to/local/files/*.jar hadoop-master:/pathToinput/
 ```
 
 copy the lib folder to the container next to the jar file
 
 ```bash
-  docker cp /path/to/local/files/lib hadoop-master:/input/lib
+  docker cp /path/to/local/files/lib hadoop-master:/pathtoinput/lib
 ```
 
 ```bash
-  docker cp /path/to/local/files/lib hadoop-master:/input/
+  docker cp /path/to/local/files/lib hadoop-master:/PathToinput/
 ```
 
 ### 3. Prepare the Data
